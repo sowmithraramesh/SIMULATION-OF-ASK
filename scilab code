@@ -1,0 +1,45 @@
+// Step 1: Initialize the Environment
+clear;
+clc;
+// Step 2: Define Parameters
+data = [1 0 1 0 1 1 0 1];
+bit_duration = 1;
+fc = 10;
+amplitude = 2;
+sampling_rate = 1000;
+// Step 3: Create Time Vector
+t = 0 to (bit_duration * length(data) - 1/sampling_rate) with step size 1/sampling_rate;
+// Step 4: Generate Message Signal
+message_signal = [];
+for each bit in data:
+ if bit == 1:
+ append ones of length sampling_rate to message_signal
+ else:
+ append zeros of length sampling_rate to message_signal
+// Step 5: Generate Carrier Signal
+carrier_signal = amplitude * sin(2 * %pi * fc * t);
+// Step 6: Perform ASK Modulation
+ask_signal = [];
+for each bit in data:
+ if bit == 1:
+ append amplitude * sin(2 * %pi * fc * (0 to bit_duration - 1/sampling_rate)) to ask_signal
+ else:
+28
+ append zeros of length sampling_rate to ask_signal
+// Step 7: Plot Signals
+clf;
+subplot 1:
+ plot t vs message_signal
+ title 'Message Signal'
+ xlabel 'Time'
+ ylabel 'Amplitude'
+subplot 2:
+ plot t vs carrier_signal
+ title 'Carrier Signal'
+ xlabel 'Time'
+ ylabel 'Amplitude'
+subplot 3:
+ plot t vs ask_signal
+ title 'ASK Signal'
+ xlabel 'Time'
+ ylabel 'Amplitude
